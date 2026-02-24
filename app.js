@@ -10,11 +10,13 @@ const app = express();
 
 // Define the port number where our server will listen
 
-const PORT = 3000;
+const PORT = 3006;
 
 
 // Define a default "route" ('/')
  app.use(express.static('public'));
+ app.set('views','ejs');
+ app.use(express.urlencoded({extended:true}));
 
 // req: contains information about the incoming request
 
