@@ -15,27 +15,33 @@ const PORT = 3006;
 
 // Define a default "route" ('/')
  app.use(express.static('public'));
- app.set('views','ejs');
+ app.use(express.json());
+ app.set('view engine','ejs');
  app.use(express.urlencoded({extended:true}));
 
 // req: contains information about the incoming request
 
 // res: allows us to send back a response to the client
 
-app.get('/', (req, res) => {
+app.get('/home', (req, res) => {
 
   res.render('home');
 });
-app.get('/', (req, res) => {
+app.get('/admin', (req, res) => {
 
-  res.render('admin');
+  res.render('admin',{order});
 });
-app.get('/', (req, res) => {
-
+app.get('/confirm', (req, res) => {
   res.render('confirm');
 });
+const orders = [];
+app.post('/order', (req, res) => {
 
+  const order = req.body;
 
+  orders.push(order);
+  res.render('confirm', {order});
+});
 // Start the server and listen on the specified port
 
 app.listen(PORT, () => {
