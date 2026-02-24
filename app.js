@@ -15,8 +15,13 @@ const PORT = 3006;
 
 // Define a default "route" ('/')
  app.use(express.static('public'));
+<<<<<<< HEAD
  app.use(express.json());
  app.set('view engine','ejs');
+=======
+ app.set('view engine', 'ejs');
+app.set('views', './views'); // folder where your .ejs files live
+>>>>>>> 12a18b39566fc9f3b5d0173a6144e517cdfd43cb
  app.use(express.urlencoded({extended:true}));
 
 // req: contains information about the incoming request
