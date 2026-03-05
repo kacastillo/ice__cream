@@ -102,8 +102,77 @@ app.get('/admin', async (req, res) => {
 
 
 
-app.get('/confirm', (req, res) => {
-  res.render('confirm');
+// Confirmation route - handles form submission
+
+app.post('/confirm', async (req, res) => {
+
+
+    try {
+
+        // Get form data from req.body
+
+        const order = req.body;        
+
+
+        // Log the order data (for debugging)
+
+        console.log('New order submitted:', order);
+
+          // Convert toppings array to comma-separated string 
+
+  order.toppings = Array.isArray(order.toppings) ?
+
+              order.toppings.join(", ") : ""; 
+
+
+        // SQL INSERT query with placeholders to prevent SQL injection
+
+        const sql =
+
+`INSERT INTO orders(customer, email, flavor, cone, toppings)
+
+ VALUES (?, ?, ?, ?, ?);`;
+
+
+        // Parameters array must match the order of ? placeholders
+
+          // Make sure your property names match your order names
+
+        const params = [
+
+           order.customer,
+
+           order.email,
+
+                order.flavor,
+
+                order.cone,
+
+                order.toppings
+
+        ];
+
+        // Execute the query and grab the primary key of the new row
+
+        const result = await pool.execute(sql, params);
+
+        console.log('Order saved with ID:', result[0].insertId);
+
+
+        // Render confirmation page with the adoption data
+
+        res.render('confirmation', { order });        
+
+
+    } catch (err) {
+
+
+        console.error('Error saving order:', err);
+
+        res.status(500).send('Sorry, there was an error processing your order. Please try again.');
+
+    }
+
 });
 
 app.post('/orders', (req, res) => {
