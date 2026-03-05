@@ -8,7 +8,7 @@ import dotenv from 'dotenv';
 // Create an instance of an Express application
 
 const app = express();
-
+dotenv.config();
 
 // Define the port number where our server will listen
 
