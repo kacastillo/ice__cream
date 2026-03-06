@@ -175,31 +175,6 @@ app.post('/confirm', async (req, res) => {
 
 });
 
-app.post('/orders', (req, res) => {
-const {
-  name,
-  email,
-  flavor,
-  cone, 
-  comments
-} = req.body;
-
-
-let toppings = req.body['toppings[]'] || []; //topping as an array
-
-  const order = {
-    name,
-    email,
-    flavors: Array.isArray(flavor) ? flavor : [flavor],
-    cone,
-    toppings: Array.isArray(toppings) ? toppings : [toppings],
-    comment: comments,
-    timestamp: new Date()
-  }
-  orders.push(order);
-  res.render('confirm', {order});
-});
-
 app.listen(PORT, '0.0.0.0', () => {
     console.log(`Server is running at http://localhost:${PORT}`);
 
