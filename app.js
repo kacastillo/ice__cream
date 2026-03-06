@@ -161,7 +161,7 @@ app.post('/confirm', async (req, res) => {
 
         // Render confirmation page with the adoption data
 
-        res.render('confirmation', { order });        
+        res.render('confirm', { order });        
 
 
     } catch (err) {
